@@ -30,6 +30,13 @@ class RoverControl(Node):
                 self.publisher.publish([pi/4,pi/4,pi/4,pi/4,0,0,0,0])
                 self.publisher.publish([0,0,0,0,1,1,1,1])
             self.i+=1
-            
+
+def main(args=None):
+    rclpy.init(args=args)
+    rover_control = RoverControl()
+    rclpy.spin(rover_control)
+
+if __name__ == '__main__':
+    main()            
             
         
