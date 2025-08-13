@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
-import math
+from math import pi
 import random
 
 class RoverControl(Node):
@@ -13,30 +13,38 @@ class RoverControl(Node):
         self.timer = self.create_timer(2,self.timer_callback)
         self.i=1
         
-        def timer_callback(self):
-            if self.i==1:
-                self.publisher.publish([0,0,0,0,1,1,1,1])
-            elif self.i==2:
-                self.publisher.publish([-pi/2,-pi/2,-pi/2,-pi/2,0,0,0,0])
-            elif self.i==3:
-                self.publisher.publish([0,0,0,0,1,1,1,1])
-            elif self.i==4:
-                j=random.randint(1,2)
-                if j==1:
-                    self.publisher.publish([0,0,0,0,1,-1,1,-1])
-                else:
-                    self.publisher.publish([-pi/4,pi/4,pi/4,-pi/4,1,1,1,1])
-            elif self.i==5:
-                self.publisher.publish([pi/4,pi/4,pi/4,pi/4,0,0,0,0])
-                self.publisher.publish([0,0,0,0,1,1,1,1])
-            self.i+=1
-
+    def timer_callback(self):
+        msg=Float64MultiArray()
+        msg1=Float64MultiArray()
+        if self.i==1:
+            msg.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
+            self.publisher.publish(msg)
+        elif self.i==2:
+            msg.data=[-pi/2,-pi/2,-pi/2,-pi/2,0.0,0.0,0.0,0.0]
+            self.publisher.publish(msg)
+        elif self.i==3:
+            msg.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
+            self.publisher.publish(msg)
+        elif self.i==4:
+            j=random.randint(1,2)
+            if j==1:         
+                msg.data=[0.0,0.0,0.0,0.0,1.0,-1.0,1.0,-1.0]                    
+                self.publisher.publish(msg)
+            else:
+                msg.data=[-pi/4,pi/4,pi/4,-pi/4,1.0,1.0,1.0,1.0]
+                self.publisher.publish(msg)
+        elif self.i==5:
+            msg.data=[pi/4,pi/4,pi/4,pi/4,0.0,0.0,0.0,0.0]
+            self.publisher.publish(msg)
+            msg1.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
+            self.publisher.publish(msg1)
+        self.i+=1
+            
 def main(args=None):
     rclpy.init(args=args)
     rover_control = RoverControl()
     rclpy.spin(rover_control)
 
 if __name__ == '__main__':
-    main()            
+    main()
             
-        
