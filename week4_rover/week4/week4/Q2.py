@@ -16,16 +16,16 @@ class RoverControl(Node):
     def timer_callback(self):
         msg=Float64MultiArray()
         msg1=Float64MultiArray()
-        if self.i==1:
+        if self.i%5==1:
             msg.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
             self.publisher.publish(msg)
-        elif self.i==2:
+        elif self.i%5==2:
             msg.data=[-pi/2,-pi/2,-pi/2,-pi/2,0.0,0.0,0.0,0.0]
             self.publisher.publish(msg)
-        elif self.i==3:
+        elif self.i%5==3:
             msg.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
             self.publisher.publish(msg)
-        elif self.i==4:
+        elif self.i%5==4:
             j=random.randint(1,2)
             if j==1:         
                 msg.data=[0.0,0.0,0.0,0.0,1.0,-1.0,1.0,-1.0]                    
@@ -33,7 +33,7 @@ class RoverControl(Node):
             else:
                 msg.data=[-pi/4,pi/4,pi/4,-pi/4,1.0,1.0,1.0,1.0]
                 self.publisher.publish(msg)
-        elif self.i==5:
+        elif self.i%5==0:
             msg.data=[pi/4,pi/4,pi/4,pi/4,0.0,0.0,0.0,0.0]
             self.publisher.publish(msg)
             msg1.data=[0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0]
